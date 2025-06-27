@@ -71,7 +71,6 @@ hist = alt.Chart(neightopten_df).mark_bar().encode(
 linked_chart = alt.Chart(df).mark_bar().encode(
     y=alt.Y("room_type:N", title="Room Type"),
     x=alt.X("count():Q", title="Count"),
-    color=alt.Color("room_type:N")
 ).transform_filter(
     click
 )
