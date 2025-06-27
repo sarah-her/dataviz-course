@@ -51,7 +51,16 @@ st.markdown("### Visualization 2: Linked Bar Graphs of Airbnb listings by Neighb
 click = alt.selection_point(encodings=['color'])
 
 # Bar chart: Clicking a bar selects an "Origin" and highlights it
-hist = alt.Chart(df).mark_bar().encode(
+top10_neigh = (
+    df['neighbourhood_cleansed']
+    .value_counts()
+    .nlargest(10)
+    .index
+)
+
+neightopten_df = df[df['neighbourhood_cleansed'].isin(top10_neigh)]
+
+hist = alt.Chart(neightopten_df).mark_bar().encode(
     x='count()',  # Count the number of cars per Origin
     y=alt.Y('neighbourhood_cleansed:N', sort='-x'),  # Categorical axis for car origin
     color=alt.condition(click, 'neighbourhood_cleansed:N', alt.value('lightgray'))  # Highlight selection, gray out others
